@@ -63,3 +63,8 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "sidekiq", "~> 8.0"
+
+gem "redis", "~> 5.4"
+gem "dotenv", groups: %i[development test]

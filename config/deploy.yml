@@ -19,15 +19,18 @@ registry:
 env:
   secret:
     - RAILS_MASTER_KEY
+    - POSTGRES_PASSWORD
   clear:
-    RAILS_LOG_LEVEL: error
+    POSTGRES_USER: rails_test
+    POSTGRES_DB: rails_test_production
+    POSTGRES_HOST: 89.169.181.176
+    REDIS_URL: 'redis://rails-test-redis:6379/'
 
 aliases:
   console: app exec --interactive --reuse "bin/rails console"
   shell: app exec --interactive --reuse "bash"
   logs: app logs -f
   dbc: app exec --interactive --reuse "bin/rails dbconsole"
-
 
 asset_path: /rails/public/assets
 
@@ -38,26 +41,22 @@ ssh:
   user: deploy
   keys: ["~/.ssh/id_ed25519.pub"]
 
-# Use accessory services (secrets come from .kamal/secrets).
-# accessories:
-#   db:
-#     image: mysql:8.0
-#     host: 192.168.0.2
-#     # Change to 3306 to expose port to the world instead of just local network.
-#     port: "127.0.0.1:3306:3306"
-#     env:
-#       clear:
-#         MYSQL_ROOT_HOST: '%'
-#       secret:
-#         - MYSQL_ROOT_PASSWORD
-#     files:
-#       - config/mysql/production.cnf:/etc/mysql/my.cnf
-#       - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
-#     directories:
-#       - data:/var/lib/mysql
-#   redis:
-#     image: redis:7.0
-#     host: 192.168.0.2
-#     port: 6379
-#     directories:
-#       - data:/data
+accessories:
+  db:
+    image: postgres:16.1
+    host: 89.169.181.176
+    port: 5432
+    env:
+      clear:
+        POSTGRES_USER: rails_test
+        POSTGRES_DB: rails_test_production
+      secret:
+        - POSTGRES_PASSWORD
+    directories:
+      - 'data:/var/lib/postgresql/data'
+  redis:
+    image: 'redis:7.2'
+    host: 164.90.203.61
+    port: 6379
+    directories:
+      - 'data:/data'

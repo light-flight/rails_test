@@ -6,10 +6,6 @@ image: lightflight/rails_test
 servers:
   web:
     - 89.169.181.176
-  job:
-    hosts:
-      - 89.169.181.176
-    cmd: bundle exec sidekiq
 
 proxy:
   ssl: true
@@ -53,6 +49,7 @@ accessories:
       clear:
         POSTGRES_USER: rails_test
         POSTGRES_DB: rails_test_production
+        POSTGRES_HOST: 89.169.181.176
       secret:
         - POSTGRES_PASSWORD
     directories:

@@ -80,6 +80,7 @@ test:
 #
 production:
   <<: *default
-  database: rails_test_production
-  username: rails_test
+  username: <%= ENV["POSTGRES_USER"] %>
   password: <%= ENV["POSTGRES_PASSWORD"] %>
+  database: <%= ENV["POSTGRES_DB"] %>
+  host: <%= ENV["POSTGRES_HOST"] %>

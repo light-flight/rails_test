@@ -28,7 +28,7 @@ env:
     POSTGRES_USER: rails_test
     POSTGRES_DB: rails_test_production
     POSTGRES_HOST: 89.169.181.176
-    REDIS_URL: 'redis://rails-test-redis:6379/'
+    REDIS_URL: 'redis://89.169.181.176:6379/0'
 
 aliases:
   console: app exec --interactive --reuse "bin/rails console"

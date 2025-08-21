@@ -6,6 +6,10 @@ image: lightflight/rails_test
 servers:
   web:
     - 89.169.181.176
+  job:
+    hosts:
+      - 89.169.181.176
+    cmd: bundle exec sidekiq
 
 proxy:
   ssl: true
